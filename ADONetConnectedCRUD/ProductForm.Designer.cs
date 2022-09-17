@@ -48,6 +48,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.chkDisconiued = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nuUnitPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuUnitsInStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuOrder)).BeginInit();
@@ -243,11 +244,22 @@
             this.btnClose.Text = "Kapat";
             this.btnClose.UseVisualStyleBackColor = true;
             // 
+            // chkDisconiued
+            // 
+            this.chkDisconiued.AutoSize = true;
+            this.chkDisconiued.Location = new System.Drawing.Point(352, 144);
+            this.chkDisconiued.Name = "chkDisconiued";
+            this.chkDisconiued.Size = new System.Drawing.Size(101, 21);
+            this.chkDisconiued.TabIndex = 20;
+            this.chkDisconiued.Text = "Ürün Satışta";
+            this.chkDisconiued.UseVisualStyleBackColor = true;
+            // 
             // ProductForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(523, 255);
+            this.Controls.Add(this.chkDisconiued);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnDelete);
@@ -305,5 +317,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.CheckBox chkDisconiued;
     }
 }

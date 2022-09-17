@@ -22,10 +22,72 @@ namespace ADONetConnectedCRUD
 
         private void ProductForm_Load(object sender, EventArgs e)
         {
-            
+
             FillSupplier();
             FillCategory();
             GetAllProducts();
+            FillForm();
+            
+        }
+
+        private void FillForm()
+        {
+            if (RecID > 0)
+            {
+                var product = GetProductById(this.RecID);
+                txtProductName.Text = product.ProductName;
+                cmbCategory.SelectedValue = product.CategoryID;
+                cmbSuppliers.SelectedValue = product.SupplierID;
+                txtQuantityPerUnit.Text = product.QuantityPerUnit;
+                nuUnitPrice.Value = (decimal)product.UnitPrice;
+                nuOrder.Value = (decimal)product.UnitsOnOrder;
+                nuReorderLvel.Value = (decimal)product.ReorderLevel;
+                nuUnitsInStock.Value = (decimal)product.UnitsInStock;
+                chkDisconiued.Checked = (bool)product.Discontinued;
+            }
+            else
+            {
+
+            }
+        }
+
+        private Product GetProductById(int productID)
+        {
+            Product product = null;
+            using (SqlConnection con = new SqlConnection(_ConnectionString))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand("select top 1 * from Products where ProductID=@ProductID", con))
+                    {
+                        if (con.State != ConnectionState.Open) con.Open();
+                        command.Parameters.AddWithValue("ProductID", productID);
+
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            product = new Product();
+
+                            product.ProductID = (int)reader["ProductID"];
+                            product.SupplierID = (int)reader["SupplierID"];
+                            product.CategoryID = (int)reader["CategoryID"];
+                            product.ProductName = (string)reader["ProductName"];
+                            product.QuantityPerUnit = (string)reader["QuantityPerUnit"];
+                            product.UnitPrice = (decimal)reader["UnitPrice"];
+                            product.UnitsInStock = (short)reader["UnitsInStock"];
+                            product.UnitsOnOrder = (short)reader["UnitsOnOrder"];
+                            product.ReorderLevel = (short)reader["ReorderLevel"];
+                            product.Discontinued = (bool)reader["Discontinued"];
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+            }
+            return product;
         }
 
         private void FillCategory()
@@ -90,7 +152,7 @@ namespace ADONetConnectedCRUD
         {
             List<Supplier> suppliers = new List<Supplier>();
 
-            using(SqlConnection con = new SqlConnection(_ConnectionString))
+            using (SqlConnection con = new SqlConnection(_ConnectionString))
             {
                 try
                 {
@@ -116,20 +178,19 @@ namespace ADONetConnectedCRUD
             }
             return suppliers;
         }
-
         List<Category> GetCategories()
         {
             List<Category> categories = new List<Category>();
 
-            using(SqlConnection con = new SqlConnection(_ConnectionString))
+            using (SqlConnection con = new SqlConnection(_ConnectionString))
             {
                 try
                 {
-                    using(SqlCommand command = new SqlCommand("select CategoryID,CategoryName from Categories", con))
+                    using (SqlCommand command = new SqlCommand("select CategoryID,CategoryName from Categories", con))
                     {
                         if (con.State != ConnectionState.Open) con.Open();
                         SqlDataReader reader = command.ExecuteReader();
-                        
+
                         while (reader.Read())
                         {
                             Category category = new Category();
@@ -150,5 +211,5 @@ namespace ADONetConnectedCRUD
         }
 
     }
-    
+
 }
