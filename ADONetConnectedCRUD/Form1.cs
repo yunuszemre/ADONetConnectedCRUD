@@ -32,7 +32,7 @@ namespace ADONetConnectedCRUD
 
         private void FillProducts()
         {
-           grdProducts.DataSource = GetProducts();
+           grdProducts.DataSource = GetAllProducts();
         }
         string _ConnectionString = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
         public List<Product> GetProducts()
@@ -82,7 +82,45 @@ namespace ADONetConnectedCRUD
                 form.RecID = product.ProductID;
                 form.Show();
             }
-            MessageBox.Show(product.ProductID.ToString());
+           
+        }
+        List<Product> GetAllProducts()
+        {
+            List<Product> products = new List<Product>();
+
+            using (SqlConnection con = new SqlConnection(_ConnectionString))
+            {
+                try
+                {
+                    using(SqlCommand command = new SqlCommand("select * from Products", con))
+                    {
+                        if (con.State == ConnectionState.Closed) con.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            Product product = new Product();
+                            product.ProductID = (int)reader["ProductID"];
+                            product.SupplierID = (int)reader["SupplierID"];
+                            product.CategoryID = (int)reader["CategoryID"];
+                            product.ProductName = (string)reader["ProductName"];
+                            product.QuantityPerUnit = (string)reader["QuantityPerUnit"];
+                            product.UnitPrice = (decimal)reader["UnitPrice"];
+                            product.UnitsInStock = (short)reader["UnitsInStock"];
+                            product.UnitsOnOrder = (short)reader["UnitsOnOrder"];
+                            product.ReorderLevel = (short)reader["ReorderLevel"];
+                            product.Discontinued = (bool)reader["Discontinued"];
+                            products.Add(product);
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+                return products;
+            }
         }
     }
 }

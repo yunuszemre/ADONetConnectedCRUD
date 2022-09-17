@@ -81,6 +81,7 @@
             // 
             // cmbSuppliers
             // 
+            this.cmbSuppliers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSuppliers.FormattingEnabled = true;
             this.cmbSuppliers.Location = new System.Drawing.Point(102, 44);
             this.cmbSuppliers.Name = "cmbSuppliers";
@@ -89,6 +90,7 @@
             // 
             // cmbCategory
             // 
+            this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategory.FormattingEnabled = true;
             this.cmbCategory.Location = new System.Drawing.Point(352, 44);
             this.cmbCategory.Name = "cmbCategory";
