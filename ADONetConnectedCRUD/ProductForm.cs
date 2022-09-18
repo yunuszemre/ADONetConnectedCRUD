@@ -27,7 +27,11 @@ namespace ADONetConnectedCRUD
             FillCategory();
             GetAllProducts();
             FillForm();
-            
+            this.Left = this.CustomParentForm.Left-this.Left/2;
+            this.Height = this.CustomParentForm.Height;
+            this.Top = this.CustomParentForm.Top;
+            timer1.Enabled = true;
+
         }
 
         private void FillForm()
@@ -84,7 +88,7 @@ namespace ADONetConnectedCRUD
                 catch (Exception ex)
                 {
 
-                    throw;
+                    MessageBox.Show(ex.Message);
                 }
             }
             return product;
@@ -209,7 +213,39 @@ namespace ADONetConnectedCRUD
             }
             return categories;
         }
+        void FormClear()
+        {
+            this.RecID = 0;
+            txtProductName.Text = "";
+            txtQuantityPerUnit.Text = "";
+            cmbCategory.SelectedIndex = 0;
+            cmbSuppliers.SelectedIndex = 0;
+            nuReorderLvel.Value = 0;
+            nuOrder.Value = 0;
+            nuUnitPrice.Value = 0;
+            nuUnitsInStock.Value = 0;
+            chkDisconiued.Checked = false;
 
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            FormClear();
+        }
+        public Form CustomParentForm { get; set; }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            do
+            {
+                this.Left += 1;
+            } while (this.Left!=this.CustomParentForm.Width/2);
+            
+            if (this.Left==this.CustomParentForm.Width/2)
+            {
+                timer1.Enabled = false;
+            }
+        }
     }
 
 }

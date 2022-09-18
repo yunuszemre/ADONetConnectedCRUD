@@ -27,12 +27,12 @@ namespace ADONetConnectedCRUD
 
         private void FillForm()
         {
-           FillProducts();
+            FillProducts();
         }
 
         private void FillProducts()
         {
-           grdProducts.DataSource = GetAllProducts();
+            grdProducts.DataSource = GetAllProducts();
         }
         string _ConnectionString = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
         public List<Product> GetProducts()
@@ -76,13 +76,13 @@ namespace ADONetConnectedCRUD
         private void grdProducts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var product = (grdProducts.DataSource as List<Product>)[e.RowIndex];
-            if (product!=null)
+            if (product != null)
             {
                 ProductForm form = new ProductForm();
                 form.RecID = product.ProductID;
-                form.Show();
+                form.ShowDialog();
             }
-           
+
         }
         List<Product> GetAllProducts()
         {
@@ -92,7 +92,7 @@ namespace ADONetConnectedCRUD
             {
                 try
                 {
-                    using(SqlCommand command = new SqlCommand("select * from Products", con))
+                    using (SqlCommand command = new SqlCommand("select * from Products", con))
                     {
                         if (con.State == ConnectionState.Closed) con.Open();
                         SqlDataReader reader = command.ExecuteReader();
@@ -121,6 +121,13 @@ namespace ADONetConnectedCRUD
                 }
                 return products;
             }
+        }
+
+        private void menuProductButton_Click(object sender, EventArgs e)
+        {
+            ProductForm form = new ProductForm();
+            form.CustomParentForm = this;
+            form.ShowDialog();
         }
     }
 }

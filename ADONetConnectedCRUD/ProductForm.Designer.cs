@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.txtProductName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,6 +50,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.chkDisconiued = new System.Windows.Forms.CheckBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.nuUnitPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuUnitsInStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuOrder)).BeginInit();
@@ -216,6 +218,7 @@
             this.btnNew.TabIndex = 16;
             this.btnNew.Text = "Yeni";
             this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnDelete
             // 
@@ -253,6 +256,10 @@
             this.chkDisconiued.TabIndex = 20;
             this.chkDisconiued.Text = "Ürün Satışta";
             this.chkDisconiued.UseVisualStyleBackColor = true;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // ProductForm
             // 
@@ -318,5 +325,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.CheckBox chkDisconiued;
+        private System.Windows.Forms.Timer timer1;
     }
 }
